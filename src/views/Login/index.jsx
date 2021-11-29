@@ -14,20 +14,14 @@ export default class NormalLoginForm extends Component {
   onFinish = (values) => {
     if (values) {
       const params = {
-        input: {
-          userac: values.username,
-          passwd: values.password
-        },
-        sys: {
-          prcscd: 'lm4401'
-        }
+        userName: values.username,
+        passWord: values.password
       }
-      ajaxRequest('lm4401', params).then((res) => {
+      ajaxRequest('serve/login', params).then((res) => {
         if (res) {
-          const { token } = res
+          const { userName } = res
           let obj = {
-            username: values.username,
-            token
+            username: userName
           }
           sessionStorage.setItem('user', JSON.stringify(obj))
           this.props.history.push('/')

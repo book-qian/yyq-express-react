@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { message, Modal } from 'antd'
+import { message } from 'antd'
 import { getToken, setToken } from '@/utils/auth'
 
 const service = axios.create({
@@ -21,10 +21,15 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (response) => {
-    return response
+    const { config, data } = response
+    if (config.url.includes('login')) {
+      setToken(data.token)
+    }
+    return response.data
   },
   (error) => {
-    message.error('网络请求异常')
+    const { data } = error.response
+    message.error(data.message || '网络请求异常')
   }
 )
 

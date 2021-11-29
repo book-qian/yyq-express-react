@@ -1,6 +1,6 @@
 import request from '@/utils/http'
 
-const BASE_API = '/gateway/'
+const BASE_API = 'http://localhost:3001/'
 
 export function ajaxRequest(url, data) {
   return request({

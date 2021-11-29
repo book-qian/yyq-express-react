@@ -6,7 +6,6 @@ import routes from '@/routes'
 import SideBar from '@/container/SideBar'
 import HeaderBar from '@/container/HeaderBar'
 import { ajaxRequest } from '@/api'
-import menuData from './menu'
 import { getMenu } from '@/redux/actions/menu'
 import './layout.less'
 const { Content } = Layout
@@ -35,18 +34,14 @@ class PublicLayout extends Component {
   }
 
   getMenuData = () => {
-    this.setState({ menu: menuData })
+    const { username } = JSON.parse(sessionStorage.getItem('user'))
     const params = {
-      input: {
-        userac: JSON.parse(sessionStorage.getItem('user')).username
-      },
-      sys: {
-        prcscd: 'lm4004'
-      }
+      userName: username
     }
-
-    ajaxRequest('lm4004', params).then((res) => {
-      this.props.fetchMenu(res.data)
+    ajaxRequest('serve/getMenu', params).then((res) => {
+      const { menuList } = res
+      this.setState({ menu: menuList })
+      this.props.fetchMenu(menuList)
     })
   }
 

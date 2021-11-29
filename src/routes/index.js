@@ -4,6 +4,7 @@ const Home = loadable(() => import('@/views/Home'))
 // 通用
 const ButtonView = loadable(() => import('@/views/Public/Button'))
 const IconView = loadable(() => import('@/views/Public/Icon'))
+const TaskView = loadable(() => import('@/views/Public/Task'))
 
 //导航
 const DropdownView = loadable(() => import('@/views/NavView/Dropdown'))
@@ -44,6 +45,12 @@ const routes = [
     exact: false,
     name: '按钮',
     component: IconView
+  },
+  {
+    path: '/public/task',
+    exact: false,
+    name: '任务',
+    component: TaskView
   },
   {
     path: '/nav/dropdown',
